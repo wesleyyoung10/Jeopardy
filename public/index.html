@@ -1,13 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head lang="en">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jeopardy</title>
-    <link rel="stylesheet" href="/screen.css">
-  </head>
-  <body>
-    <h1>Hello, World!</h1>
-    <script src="/main.js" charset="utf-8"></script>
-  </body>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jeopardy</title>
+  <link rel="stylesheet" href="./screen.css">
+</head>
+
+<body ng-app="mainApp" ng-controller="mainController">
+
+  <div class="board" ng-hide="clueSelected">
+
+    <div class="category" ng-repeat="category in categories">
+      <div class="category-name">{{ category.title }}</div>
+
+      <div class="clue" ng-repeat="clue in category.clues" ng-click="selectClue(clue)">${{ clue.value }}</div>
+    </div>
+  </div>
+  <span class="score">Your Score: ${{ currentScore }}</span>
+ 
+  <div class="mainclue" ng-hide="!clueSelected">
+    {{ selectedClue.question }}
+    <form novalidate class="simple-form">
+      <label>Answer:
+        <input type="text" ng-model="answer" />
+      </label>
+      <input type="submit" ng-click="update(answer)" value="Submit" />
+      <input type="button" ng-click="cancel()" value="Cancel" />
+    </form>
+  </div>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="./main.js" charset="utf-8"></script>
+</body>
+
 </html>
